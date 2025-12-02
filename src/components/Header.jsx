@@ -31,6 +31,9 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   gap: 18px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavItem = styled(NavLink)`
@@ -49,6 +52,44 @@ const NavItem = styled(NavLink)`
   }
 `;
 
+const Hamburger = styled.div`
+  width: 26px;
+  height: 22px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+
+  span {
+    height: 3px;
+    background: ${({ theme }) => theme.colors.text || "#333"};
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const MobileMenu = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+
+  background: ${({ theme }) => theme.colors.surface || "#fff"};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border || "#ddd"};
+
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
 const Right = styled.div`
   display: flex;
   align-items: center;
@@ -59,22 +100,32 @@ const Right = styled.div`
 const ActionButton = styled(Link)`
   padding: 8px 12px;
   border-radius: 12px;
-  color: white;
+  font-size: 14px;
   min-height: 36px;
-  line-height: 1.5;
-  text-align: center;
+  white-space: nowrap;
+
+  color: white;
   text-decoration: none;
+
   background: linear-gradient(
     135deg,
     ${({ theme }) => theme.colors.primary || '#007bff'},
     ${({ theme }) => theme.colors.primaryDark || '#0056b3'}
   );
+
   box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
-  transition: opacity 0.2s;
-  &:hover {
-    opacity: 0.9;
+  transition: 0.2s;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    min-height: 34px;
   }
 `;
+
 
 
 const AvatarWrapper = styled.div`
@@ -141,6 +192,12 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const wrapperRef = useRef(null);
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+  setIsMobileMenuOpen(prev => !prev);
+};
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -192,6 +249,20 @@ export default function Header() {
             <NavItem to="/materials">{t("nav.materials")}</NavItem>
             <NavItem to="/about">{t("nav.about")}</NavItem>
           </Nav>
+          {/* Hamburger for mobile */}
+            <Hamburger onClick={toggleMobileMenu}>
+           <span></span>
+           <span></span>
+           <span></span>
+          </Hamburger>
+
+{/* Mobile dropdown menu */}
+        <MobileMenu $isOpen={isMobileMenuOpen}>
+        <NavItem onClick={() => handleNavigate("/")}>{t("nav.home")}</NavItem>
+        <NavItem onClick={() => handleNavigate("/activities")}>{t("nav.activities")}</NavItem>
+       <NavItem onClick={() => handleNavigate("/materials")}>{t("nav.materials")}</NavItem>
+       <NavItem onClick={() => handleNavigate("/about")}>{t("nav.about")}</NavItem>
+        </MobileMenu>
           <LanguageSwitcher />
 
           {user ? (

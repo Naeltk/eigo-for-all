@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { DndContext, useDroppable } from "@dnd-kit/core";
+import { DndContext, useDroppable, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { greetingConversations } from "../data/greetingConversations";
 import { getQuestionData } from "../funcs/createRandomBlanks";
 import ScoreCounter from "../components/ScoreCounter";
@@ -38,6 +38,8 @@ const OptionsContainer = styled.div`
   gap: 16px;
   margin-top: 32px;
 font-family:'Comic Neue',cursive;
+  touch-action: none;
+
 `;
 
 const bounce = keyframes`
@@ -101,6 +103,14 @@ export default function Grade5GreetingActivity() {
   const [filledBlanks, setFilledBlanks] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [questionOrder, setQuestionOrder] = useState([]);
+
+  const pointerSensor = useSensor(PointerSensor, {
+  activationConstraint: {
+    distance: 5,
+  },
+});
+
+const sensors = useSensors(pointerSensor);
 
 
   const navigate = useNavigate();
@@ -239,6 +249,7 @@ const handleDragEnd = useCallback((event) => {
   return (
     <DndContext
         //onDragStart={handleDragStart}
+        sensors={sensors}
         onDragEnd={handleDragEnd}
     >
       <ActivityContainer>

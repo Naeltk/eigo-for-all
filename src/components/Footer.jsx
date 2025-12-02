@@ -14,6 +14,10 @@ const Container = styled.div`
   padding: 24px 16px;
   display: grid;
   gap: 12px;
+
+   @media (max-width: 600px) {
+    padding: 20px 12px;
+  }
 `;
 
 const Row = styled.div`
@@ -22,12 +26,24 @@ const Row = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+
+    @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+  }
 `;
 
 const Links = styled.div`
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+
+    @media (max-width: 600px) {
+    justify-content: center;
+    gap: 12px;
+  }
 `;
 
 export default function Footer() {
