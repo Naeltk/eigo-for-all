@@ -13,6 +13,10 @@ const LogoWrapper = styled(Link)`
     width: auto;
     display: block;
   }
+
+  @media (max-width: 768px) {
+    display: none; /* Hides the Logo on screens 768px and narrower */
+  }
 `;
 
 export default function Logo() {

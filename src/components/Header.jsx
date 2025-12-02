@@ -25,11 +25,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  position: relative;
 
    @media (max-width: 768px) {
-    gap: 10px;
-    padding: 12px 14px;
-  }
+    padding: 10px 12px;
+    justify-content: center;
 `;
 
 const Nav = styled.nav`
@@ -88,6 +88,7 @@ const MobileMenu = styled.div`
   top: 60px;
   left: 0;
   right: 0;
+  z-index: 49;
 
   background: ${({ theme }) => theme.colors.surface || "#fff"};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border || "#ddd"};
@@ -110,6 +111,7 @@ const Right = styled.div`
   align-items: center;
   gap: 14px;
   position: relative;
+  flex-shrink: 0;
 
    @media (max-width: 768px) {
     gap: 10px;
@@ -136,7 +138,6 @@ const ActionButton = styled(Link)`
   transition: 0.2s;
 
   @media (max-width: 480px) {
-    width: 100%;
     text-align: center;
     padding: 10px;
     font-size: 14px;
