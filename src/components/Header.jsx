@@ -260,6 +260,7 @@ export default function Header() {
 
   const handleNavigate = (path) => {
     setIsMenuOpen(false);
+    setIsMobileMenuOpen(false);
     navigate(path);
   }
 
@@ -285,10 +286,10 @@ export default function Header() {
 
 {/* Mobile dropdown menu */}
         <MobileMenu $isOpen={isMobileMenuOpen}>
-        <NavItem onClick={() => handleNavigate("/")}>{t("nav.home")}</NavItem>
-        <NavItem onClick={() => handleNavigate("/activities")}>{t("nav.activities")}</NavItem>
-       <NavItem onClick={() => handleNavigate("/materials")}>{t("nav.materials")}</NavItem>
-       <NavItem onClick={() => handleNavigate("/about")}>{t("nav.about")}</NavItem>
+        <MenuItem onClick={() => handleNavigate("/")}>{t("nav.home")}</MenuItem>
+        <MenuItem onClick={() => handleNavigate("/activities")}>{t("nav.activities")}</MenuItem>
+       <MenuItem onClick={() => handleNavigate("/materials")}>{t("nav.materials")}</MenuItem>
+       <MenuItem onClick={() => handleNavigate("/about")}>{t("nav.about")}</MenuItem>
         </MobileMenu>
           <LanguageSwitcher />
 
