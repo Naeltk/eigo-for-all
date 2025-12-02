@@ -25,6 +25,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+
+   @media (max-width: 768px) {
+    gap: 10px;
+    padding: 12px 14px;
+  }
 `;
 
 const Nav = styled.nav`
@@ -50,11 +55,18 @@ const NavItem = styled(NavLink)`
     background: ${({ theme }) => theme.colors.bg || '#f0f0f0'};
     font-weight: 600;
   }
+
+   @media (max-width: 768px) {
+    width: 100%;
+    padding: 12px 14px;
+    text-align: center;
+  }
 `;
 
 const Hamburger = styled.div`
-  width: 26px;
+  width: 30px;
   height: 22px;
+  padding: 4px;
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -85,6 +97,9 @@ const MobileMenu = styled.div`
   gap: 10px;
   padding: 12px;
 
+   max-height: 70vh;
+  overflow-y: auto;
+
   @media (min-width: 769px) {
     display: none;
   }
@@ -95,6 +110,10 @@ const Right = styled.div`
   align-items: center;
   gap: 14px;
   position: relative;
+
+   @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const ActionButton = styled(Link)`
@@ -124,6 +143,10 @@ const ActionButton = styled(Link)`
     border-radius: 10px;
     min-height: 34px;
   }
+  @media (max-width: 768px) {
+  font-size: 13px;
+  padding: 8px 10px;
+}
 `;
 
 
@@ -162,12 +185,15 @@ const Menu = styled.div`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   min-width: 180px;
   
-  // Visibility controlled by React state via prop
   display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')}; 
   
   flex-direction: column;
   overflow: hidden;
   z-index: 100;
+    @media (max-width: 480px) {
+    right: 0;
+    left: auto;
+  }
 `;
 
 const MenuItem = styled.button`
